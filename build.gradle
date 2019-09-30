@@ -1,0 +1,72 @@
+plugins {
+    id 'java'
+    id 'org.jetbrains.intellij' version '0.4.9'
+}
+
+version '1.8.12-SNAPSHOT'
+sourceCompatibility = 1.8
+
+ext {
+    pmdVersion  = "6.17.0"
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile("net.sourceforge.pmd:pmd-core:${pmdVersion}") {
+        exclude(group: 'com.beust', module: 'jcommander')
+        exclude(group: 'net.java.dev.javacc', module: 'javacc')
+        exclude(group: 'net.java.dev.javacc', module: 'javacc')
+        exclude(group: 'com.google.code.gson', module: 'gson')
+    }
+    compile("net.sourceforge.pmd:pmd-apex:${pmdVersion}") {
+        transitive = false
+    }
+    compile("net.sourceforge.pmd:pmd-apex-jorje:${pmdVersion}:lib") {
+        exclude(group: 'net.sourceforge.pmd', module: 'pmd-core')
+        exclude(group: 'com.google.code.gson', module: 'gson')
+        exclude(group: 'com.google.guava', module: 'guava')
+        exclude(group: 'cglib', module: 'cglib')
+        exclude(group: 'com.google.code.findbugs', module: 'jsr305')
+        exclude(group: 'com.google.errorprone', module: 'error_prone_annotations')
+        exclude(group: 'org.antlr', module: 'stringtemplate')
+        exclude(group: 'ch.qos.logback', module: 'logback-classic')
+        exclude(group: 'ch.qos.logback', module: 'logback-core')
+        exclude(group: 'org.codehaus.mojo', module: 'animal-sniffer-annotations')
+        exclude(group: 'org.openjdk.jol', module: 'jol-core')
+        exclude(group: 'org.slf4j', module: 'slf4j-api')
+        exclude(group: 'org.yaml', module: 'snakeyaml')
+        exclude(group: 'aopalliance', module: 'aopalliance')
+        exclude(group: 'com.google.j2objc', module: 'j2objc-annotations')
+        exclude(group: 'javax.inject', module: 'javax.inject')
+    }
+    compile("net.sourceforge.pmd:pmd-java:${pmdVersion}") {
+        exclude(group: 'net.sourceforge.pmd', module: 'pmd-core')
+        exclude(group: 'net.java.dev.javacc', module: 'javacc')
+    }
+    compile("net.sourceforge.pmd:pmd-kotlin:${pmdVersion}") {
+        exclude(group: 'net.sourceforge.pmd', module: 'pmd-core')
+    }
+    compile("net.sourceforge.pmd:pmd-xml:${pmdVersion}") {
+        exclude(group: 'net.sourceforge.pmd', module: 'pmd-core')
+    }
+    compile("net.sourceforge.pmd:pmd-scala:${pmdVersion}") {
+        exclude(group: 'net.sourceforge.pmd', module: 'pmd-core')
+        exclude(group: 'org.scala-lang', module: 'scala-library')
+        exclude(group: 'org.scala-lang', module: 'scala-compiler')
+    }
+    compile('antlr:antlr:2.7.7')
+}
+
+intellij {
+    version = 'IC-2018.1.8';
+    pluginName 'PMDPlugin'
+    updateSinceUntilBuild = false
+}
+
+sourceSets {
+    main.java.srcDirs = ['src']
+    main.resources.srcDirs = ['resources']
+}
